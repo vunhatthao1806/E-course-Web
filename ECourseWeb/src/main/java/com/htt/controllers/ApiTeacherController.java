@@ -5,6 +5,7 @@
 package com.htt.controllers;
 
 import com.htt.service.CourseService;
+import com.htt.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
  *
  * @author Admin
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-public class ApiCourseController {
+public class ApiTeacherController {
     @Autowired
-    private CourseService courseSer;
+    private TeacherService teacherSer;
     
-    @DeleteMapping("/courses/{courseId}")
+    @DeleteMapping("/teachers/{teacherId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(value = "courseId") int id){
-        this.courseSer.deleteCourse(id);
+    public void delete(@PathVariable(value = "teacherId") Long id){
+        this.teacherSer.deleteTeacher(id);
     }
 }

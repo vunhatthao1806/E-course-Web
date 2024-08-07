@@ -6,10 +6,9 @@ package com.htt.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.htt.pojo.Course;
-import com.htt.pojo.Teacher;
-import com.htt.repository.CourseRepository;
-import com.htt.service.CourseService;
+import com.htt.pojo.User;
+import com.htt.repository.UserRepository;
+import com.htt.service.UserService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,51 +22,38 @@ import org.springframework.stereotype.Service;
  * @author Admin
  */
 @Service
-public class CourseServiceImpl implements CourseService{
-    
+public class UserServiceImpl implements UserService {
+
     @Autowired
-    private CourseRepository courseRepo;
+    private UserRepository userRepo;
     
     @Autowired
     private Cloudinary cloudinary;
 
+
     @Override
-    public List<Course> getCourses(Map<String, String> params) {
-        return this.courseRepo.getCourses(params);
+    public List<User> getUsers() {
+        return this.userRepo.getUsers();
     }
 
     @Override
-    public void addOrUpdate(Course c) {
+    public void addOrUpdate(User c) {
         if (!c.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(c.getFile().getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
-                c.setImage(res.get("secure_url").toString());
+                c.setAvatar(res.get("secure_url").toString());
             } catch (IOException ex) {
                 Logger.getLogger(CourseServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.courseRepo.addOrUpdate(c);
-    }
-
-    @Override
-    public Course getCourseById(int id) {
-        return this.courseRepo.getCourseById(id);
-    }
-
-    @Override
-    public void deleteCourse(int id) {
-        this.courseRepo.deleteCourse(id);
-    }
-
-    @Override
-    public void addTeacher(Teacher c) {
-       this.courseRepo.addTeacher(c);
-    }
-
-    @Override
-    public List<Course> getCourses() {
-        return this.courseRepo.getCourses();
+        
+        this.userRepo.addOrUpdate(c);
     }
     
+    @Override
+    public User getUserById(Long id) {
+        return this.userRepo.getUserById(id);
+    }
+
 }
