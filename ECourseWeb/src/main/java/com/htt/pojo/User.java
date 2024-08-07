@@ -19,10 +19,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -51,7 +53,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -106,15 +108,18 @@ public class User implements Serializable {
     private Set<Teacher> teacherSet;
     @OneToMany(mappedBy = "userId")
     private Set<Essay> essaySet;
+    
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
 
-    public User(Integer id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public User(Integer id, String username, String role, String firstName, String lastName, String email, String phoneNumber) {
+    public User(Long id, String username, String role, String firstName, String lastName, String email, String phoneNumber) {
         this.id = id;
         this.username = username;
         this.role = role;
@@ -124,11 +129,11 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -289,6 +294,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.htt.pojo.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }
