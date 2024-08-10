@@ -4,6 +4,7 @@
  */
 package com.htt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,7 +68,7 @@ public class Course implements Serializable {
     @Column(name = "isActive")
     private Boolean isActive;
 //    @NotNull
-    @Column(name = "createdDate")
+    @Column(name = "createdDate", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Column(name = "updatedDate")
@@ -82,13 +85,21 @@ public class Course implements Serializable {
     @Size(max = 255)
     @Column(name = "image")
     private String image;
+
     @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
     private Set<Lesson> lessonSet;
+
     @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
     private Set<Video> videoSet;
+
     @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
     private Set<Certification> certificationSet;
+
     @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
     private Set<Enrollment> enrollmentSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
@@ -99,11 +110,23 @@ public class Course implements Serializable {
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     @ManyToOne
     private Teacher teacherId;
+
     @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
     private Set<Receipt> receiptSet;
-    
-     @Transient
+
+    @Transient
     private MultipartFile file;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedDate = new Date();
+    }
 
     public Course() {
     }
@@ -286,7 +309,7 @@ public class Course implements Serializable {
     public String toString() {
         return "com.htt.pojo.Course[ id=" + id + " ]";
     }
-    
+
     public MultipartFile getFile() {
         return file;
     }
@@ -297,5 +320,5 @@ public class Course implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-    
+
 }

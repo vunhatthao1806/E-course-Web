@@ -1,6 +1,8 @@
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Question.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Document.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\impl\CourseRepositoryImpl.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\CourseFormatter.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\impl\VideoRepositoryImpl.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Video.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\TagRepository.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\DocumentService.java
@@ -10,6 +12,8 @@ E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\Teach
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\configs\HibernateConfigs.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\configs\WebAppContextConfigs.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\DocumentServiceImpl.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\VideoServiceImpl.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\VideoController.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Choice.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Lesson.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\CategoryService.java
@@ -22,6 +26,7 @@ E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\Lesso
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\UserRepository.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\CourseController.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\impl\TeacherRepositoryImpl.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\LessonController.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\CourseService.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\CourseRepository.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\LessonService.java
@@ -31,6 +36,7 @@ E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\configs\SpringSe
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\UserController.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\CategoryServiceImpl.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Enrollment.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\VideoRepository.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\configs\DispatcherServletInit.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Assignment.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\impl\LessonRepositoryImpl.java
@@ -49,9 +55,11 @@ E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Receipt.jav
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\CourseServiceImpl.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\TeacherServiceImpl.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\UserServiceImpl.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\VideoFormatter.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\impl\TagServiceImpl.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\pojo\Course.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\TagService.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\VideoService.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\repository\CategoryRepository.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\TeacherFormatter.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\HomeController.java
@@ -60,4 +68,5 @@ E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\UserServ
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\controllers\TeacherController.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\TagFormatter.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\CategoryFormatter.java
+E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\formatters\LessonFormatter.java
 E:\WorkSpace\ECourseManagement\ECourseWeb\src\main\java\com\htt\service\TeacherService.java

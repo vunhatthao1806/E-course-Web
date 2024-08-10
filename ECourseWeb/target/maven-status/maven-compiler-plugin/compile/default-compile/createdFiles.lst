@@ -2,6 +2,7 @@ com\htt\configs\TilesConfigs.class
 com\htt\service\impl\LessonServiceImpl.class
 com\htt\pojo\Certification.class
 com\htt\pojo\Tag.class
+com\htt\repository\impl\VideoRepositoryImpl.class
 com\htt\pojo\Essay.class
 com\htt\configs\DispatcherServletInit.class
 com\htt\service\impl\TeacherServiceImpl.class
@@ -14,8 +15,10 @@ com\htt\pojo\Score.class
 com\htt\pojo\Document.class
 com\htt\pojo\Lesson.class
 com\htt\repository\impl\LessonRepositoryImpl.class
+com\htt\controllers\VideoController.class
 com\htt\pojo\Assignment.class
 com\htt\repository\impl\TagRepositoryImpl.class
+com\htt\repository\VideoRepository.class
 com\htt\service\DocumentService.class
 com\htt\pojo\Video.class
 com\htt\configs\HibernateConfigs.class
@@ -24,10 +27,14 @@ com\htt\controllers\CourseController.class
 com\htt\pojo\Category.class
 com\htt\formatters\TeacherFormatter.class
 com\htt\repository\TeacherRepository.class
+com\htt\formatters\VideoFormatter.class
 com\htt\configs\WebAppContextConfigs.class
 com\htt\service\LessonService.class
 com\htt\repository\impl\CourseRepositoryImpl.class
+com\htt\service\impl\VideoServiceImpl.class
 com\htt\service\TagService.class
+com\htt\controllers\LessonController.class
+com\htt\service\VideoService.class
 com\htt\service\impl\AssignmentServiceImpl.class
 com\htt\service\impl\CategoryServiceImpl.class
 com\htt\formatters\TagFormatter.class

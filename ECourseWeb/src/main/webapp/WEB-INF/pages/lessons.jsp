@@ -73,35 +73,35 @@
 
 <section>
     <h1 class="text-center text-primary mt-1">QUẢN LÝ BÀI HỌC</h1>
-    <c:forEach items="${lessons}" var="c">
-        <div id="lessonWrapper${c.id}">
-            <div class="card">
-                <div class="card-header">
-                    <a class="btn" data-toggle="#lessonContent${c.id}">
-                        ${c.name}
-                    </a>
-                </div>
-                <div id="lessonContent${c.id}" class="collapse" data-bs-parent="#lessonWrapper${c.id}">
-                    <div class="card-body">
-                        ${c.description}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </c:forEach>
-
+    
+    
 </section>
 
 <style>
     .hidden {
         display: none;
     }
+    #drop-zone {
+        width: 20%;
+        height: 200px;
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 200px;
+        color: #ccc;
+        margin: 10px;
+    }
+    #drop-zone.hover {
+        border-color: #333;
+        color: #333;
+    }
 </style>
+
 <script>
     // Hàm để ẩn/hiện phần tử
     function toggleContent(targetId) {
         var content = document.querySelector(targetId);
-        
+
         if (content.classList.contains('show')) {
             content.classList.remove('show');
             content.classList.add('collapse');
@@ -112,10 +112,54 @@
     }
 
     // Thêm sự kiện click cho tất cả các liên kết với thuộc tính data-toggle
-    document.querySelectorAll('[data-toggle]').forEach(function(element) {
-        element.addEventListener('click', function() {
+    document.querySelectorAll('[data-toggle]').forEach(function (element) {
+        element.addEventListener('click', function () {
             var targetId = this.getAttribute('data-toggle');
             toggleContent(targetId);
         });
     });
+</script>
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('hover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('hover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('hover');
+        const files = e.dataTransfer.files;
+        uploadFiles(files);
+    });
+
+    dropZone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+        const files = fileInput.files;
+        uploadFiles(files);
+    });
+
+    function uploadFiles(files) {
+        const formData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
+        }
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text())
+                .then(result => alert('Upload successful: ' + result))
+                .catch(error => alert('Upload failed: ' + error));
+    }
 </script>

@@ -4,6 +4,7 @@
  */
 package com.htt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,7 +64,7 @@ public class Lesson implements Serializable {
     private Boolean isActive;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "createdDate")
+    @Column(name = "createdDate", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)
@@ -69,15 +72,30 @@ public class Lesson implements Serializable {
     @Column(name = "updatedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
+
     @OneToMany(mappedBy = "lessionId")
+//    @JsonIgnore
     private Set<Assignment> assignmentSet;
+//    @JsonIgnore
     @OneToMany(mappedBy = "lessonId")
     private Set<Document> documentSet;
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
     private Course courseId;
+
     @OneToMany(mappedBy = "lessonId")
+    @JsonIgnore
     private Set<Video> videoSet;
+    
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedDate = new Date();
+    }
 
     public Lesson() {
     }
@@ -200,5 +218,5 @@ public class Lesson implements Serializable {
     public String toString() {
         return "com.htt.pojo.Lesson[ id=" + id + " ]";
     }
-    
+
 }

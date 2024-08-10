@@ -12,7 +12,7 @@
 
 <section>
     <div>
-        <h1 class="text-center text-primary mt-1">QUẢN LÝ GIÁO VIÊN</h1>
+        <h1 class="text-center text-primary mt-1">UPDATE USER'S INFORMATION</h1>
         <c:url value="/teachers" var="action" />
 
         <form:form method="post" enctype="multipart/form-data" action="${action}" 
@@ -30,50 +30,28 @@
                     <label for="email" class="form-label">Email: </label>
                     <form:input path="email" type="email" class="form-control" id="email" placeholder="type description..." name="email" />
                 </div>
-            </div>
-        </form:form>
-        <form:form method="post" enctype="multipart/form-data" action="${action}" 
-                   modelAttribute="teacher">
-            <div class="mb-3 mt-3">
-                <label class="form-label">First name: </label>
+                <div class="mb-3 mt-3">
+                    <label for="phoneNumber" class="form-label label-input">Phone number: </label>
+                    <form:input path="phoneNumber" type="text" class="form-control form-input" id="phoneNumber" name="phoneNumber" />
+                </div>
             </div>
             <div class="mb-3 mt-3">
-                <label for="position" class="form-label">Position:</label>
-                <form:input path="position" type="text" class="form-control" id="position" placeholder="type position..." name="position" />
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="description" class="form-label">Description: </label>
-                <form:input path="description" type="text" class="form-control" id="description" placeholder="type description..." name="description" />
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="browser" class="form-label">User id: </label>
-                <form:select class="form-select" path="userId" >
-                    <c:forEach items="${users}" var="c">
-                        <c:choose>
-                            <c:when test="${c.id == teacher.userId.id}">
-                                <option value="${c.id}" selected>${c.username}</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="${c.id}">${c.username}</option>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </form:select>
+                <label for="file" class="form-label label-input">Avatar:</label>
+                <form:input path="file" type="file" accept="*" 
+                            class="form-control form-input" id="file" name="file" />
+                <c:if test="${user.avatar != null}">
+                    <img class="mt-3" src="${user.avatar}" alt="${user.avatar}" width="120px" />
+                </c:if>
             </div>
             <div class="mb-3 mt-3">
                 <form:hidden path="id" />
+                <form:hidden path="avatar" />
                 <button class="btn btn-success" type="submit">
-                    <c:choose>
-                        <c:when test="${teacher.id != null}">
-                            <option value="${c.id}" selected>Update information</option>
-                        </c:when>
-                        <c:otherwise>
-                            Add course
-                        </c:otherwise>
-                    </c:choose>
+                    Update information
                 </button>
             </div>
         </form:form>
+
 
 
     </div>

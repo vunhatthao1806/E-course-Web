@@ -5,15 +5,18 @@
 package com.htt.controllers;
 
 import com.htt.pojo.Lesson;
-import com.htt.pojo.Teacher;
-import com.htt.service.AssignmentService;
-import com.htt.service.DocumentService;
+import com.htt.service.CourseService;
 import com.htt.service.LessonService;
+import com.htt.service.VideoService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -26,21 +29,93 @@ public class LessonController {
     private LessonService lessonSer;
 
     @Autowired
-    private AssignmentService assignSer;
+    private VideoService videoSer;
 
     @Autowired
-    private DocumentService documentSer;
+    private CourseService courseSer;
+
+    @ModelAttribute
+    public void commAttrs(Model model) {
+        model.addAttribute("courses", this.courseSer.getCourses());
+    }
 
     @GetMapping("/lessons")
     public String viewLessons(Model model) {
         model.addAttribute("lesson", new Lesson());
-        return "lessons";
-    }
 
-    @GetMapping("/lessons/{lessonsId}")
-    public String lessonView(Model model, @PathVariable(value = "lessonsId") int id) {
-        model.addAttribute("course", this.lessonSer.getLessonById(id));
         return "lesson";
     }
 
+    @GetMapping("/lesson")
+    public String viewLesson(Model model) {
+        model.addAttribute("lessons", this.lessonSer.getLessons());
+        model.addAttribute("lesson", new Lesson());
+        return "lesson";
+    }
+
+    @GetMapping("/lessonAU")
+    public String LessonAUView(Model model) {
+        model.addAttribute("lesson", new Lesson());
+//        model.addAttribute("lesson", this.lessonSer.getLessons());
+        return "lessonAU";
+    }
+
+    @PostMapping("/lessonAU")
+    public String createView1(Model model, @ModelAttribute(value = "lesson") @Valid Lesson c,
+            BindingResult rs) {
+        if (rs.hasErrors()) {
+            return "lessonAU";
+        }
+        this.lessonSer.addOrUpdate(c);
+
+        return "lesson";
+    }
+
+    @GetMapping("/lesson/{lessonId}")
+    public String LessonView(Model model, @PathVariable(value = "lessonId") int id) {
+        model.addAttribute("lesson", this.lessonSer.getLessonById(id));
+        return "lessonAU";
+    }
+
+    @PostMapping("/lesson/{lessonId}")
+    public String createView(@PathVariable("lessonId") int id,
+            @ModelAttribute @Valid Lesson lesson, BindingResult rs, Model model) {
+        if (rs.hasErrors()) {
+            return "lessonAU";
+        }
+        this.lessonSer.addOrUpdate(lesson);
+        return "lesson";
+    }
+
+//    -------------------------------------------------------------------------------------
+    @GetMapping("/lessonsManagement")
+    public String LessonsManagementView(Model model) {
+        model.addAttribute("lessons", this.lessonSer.getLessons());
+        return "lessonsManagement";
+    }
+
+    @GetMapping("/lessonsManagement/{lessonId}")
+    public String LessonIdManagementView(Model model, @PathVariable(value = "lessonId") int id) {
+        model.addAttribute("lesson", this.lessonSer.getLessonById(id));
+
+        return "lessonsManagementCreate";
+    }
+
+    @GetMapping("/lessonsManagementCreate")
+    public String createLessonView(Model model) {
+        model.addAttribute("lesson", new Lesson());
+
+        return "lessonsManagementCreate";
+    }
+
+    @PostMapping("/lessonsManagementCreate")
+    public String createLessonPost(Model model, @ModelAttribute(value = "lesson") @Valid Lesson c,
+            BindingResult rs) {
+        if (rs.hasErrors()) {
+            return "lessonsManagementCreate";
+        }
+        this.lessonSer.addOrUpdate(c);
+
+        return "lessonsManagement";
+    }
 }

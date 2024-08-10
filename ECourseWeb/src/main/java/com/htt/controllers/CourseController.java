@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,7 +29,7 @@ public class CourseController {
     @GetMapping("/courses")
     public String viewCourse(Model model) {
         model.addAttribute("course", new Course());
-        return "courses";
+        return "course";
     }
 
     @GetMapping("/courses/{courseId}")
