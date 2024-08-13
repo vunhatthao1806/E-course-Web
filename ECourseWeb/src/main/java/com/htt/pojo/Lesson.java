@@ -46,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lesson.findByUpdatedDate", query = "SELECT l FROM Lesson l WHERE l.updatedDate = :updatedDate")})
 public class Lesson implements Serializable {
 
+    @OneToMany(mappedBy = "lessonId")
+    private Set<Process> processSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,30 +66,29 @@ public class Lesson implements Serializable {
     @Column(name = "isActive")
     private Boolean isActive;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "createdDate", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "updatedDate")
+    @Column(name = "updatedDate", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
     @OneToMany(mappedBy = "lessionId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Assignment> assignmentSet;
-//    @JsonIgnore
     @OneToMany(mappedBy = "lessonId")
+    @JsonIgnore
     private Set<Document> documentSet;
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Course courseId;
 
     @OneToMany(mappedBy = "lessonId")
     @JsonIgnore
     private Set<Video> videoSet;
-    
+
     @PrePersist
     protected void onCreate() {
         this.createdDate = new Date();
@@ -217,6 +219,15 @@ public class Lesson implements Serializable {
     @Override
     public String toString() {
         return "com.htt.pojo.Lesson[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Set<Process> getProcessSet() {
+        return processSet;
+    }
+
+    public void setProcessSet(Set<Process> processSet) {
+        this.processSet = processSet;
     }
 
 }

@@ -4,6 +4,7 @@
  */
 package com.htt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -49,6 +50,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")})
 public class User implements Serializable {
+
+    @OneToMany(mappedBy = "userId")
+    private Set<Receipt> receiptSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,15 +114,15 @@ public class User implements Serializable {
     private Set<Teacher> teacherSet;
     @OneToMany(mappedBy = "userId")
     private Set<Essay> essaySet;
-    
+
     @Transient
+    @JsonIgnore
     private MultipartFile file;
-    
+
     @PrePersist
     protected void onCreate() {
         this.createdDate = new Date();
     }
-
 
     public User() {
     }
@@ -317,5 +321,14 @@ public class User implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-    
+
+    @XmlTransient
+    public Set<Receipt> getReceiptSet() {
+        return receiptSet;
+    }
+
+    public void setReceiptSet(Set<Receipt> receiptSet) {
+        this.receiptSet = receiptSet;
+    }
+
 }

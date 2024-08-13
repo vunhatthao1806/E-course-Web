@@ -31,35 +31,41 @@ public class TeacherController {
     @Autowired
     private UserService userSer;
 
-//    xem thông tin của tất cả teachers
-    @GetMapping("/teachers")
-    public String viewTeacher(Model model) {
-        model.addAttribute("teacher", new Teacher());
-        return "teachersView";
-    }
-
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("users", userSer.getUsers());
     }
+
+//    xem thông tin của tất cả teachers
+    @GetMapping("/teachers")
+    public String teacherView(Model model) {
+        model.addAttribute("teacher", new Teacher());
+        return "teachers";
+    } 
 
 //    chỉnh sửa thông tin teacher
     @GetMapping("/teachers/{teacherId}")
     public String teacherView(Model model, @PathVariable(value = "teacherId") Long id) {
         model.addAttribute("teacher", this.teacherSer.getTeacherById(id));
         model.addAttribute("user", this.userSer.getUserById(id));
-        return "teachers";
+        return "teacher";
     }
     
+    @GetMapping("/teacherCreate")
+    public String teacherView2(Model model) {
+        model.addAttribute("teacher", new Teacher());
+        return "teacher";
+    }
+
     @PostMapping("/teachers")
     public String create(Model model,
-            @ModelAttribute(value = "user") @Valid User user,
+            @ModelAttribute(value = "teacher") @Valid Teacher teacher,
             BindingResult userResult) {
 
         if (userResult.hasErrors()) {
-            return "teachers";
+            return "teacher";
         }
-        this.userSer.addOrUpdate(user);
-        return "redirect:/";
+        this.teacherSer.addOrUpdate(teacher);
+        return "teachers";
     }
 }

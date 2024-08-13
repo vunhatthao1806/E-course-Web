@@ -51,6 +51,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Course.findByImage", query = "SELECT c FROM Course c WHERE c.image = :image")})
 public class Course implements Serializable {
 
+    @OneToMany(mappedBy = "courseId")
+    private Set<RecepitDetail> recepitDetailSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,35 +90,39 @@ public class Course implements Serializable {
     private String image;
 
     @OneToMany(mappedBy = "courseId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Lesson> lessonSet;
 
     @OneToMany(mappedBy = "courseId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Video> videoSet;
 
     @OneToMany(mappedBy = "courseId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Certification> certificationSet;
 
     @OneToMany(mappedBy = "courseId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Enrollment> enrollmentSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Category categoryId;
     @JoinColumn(name = "tag_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Tag tagId;
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Teacher teacherId;
 
     @OneToMany(mappedBy = "courseId")
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Receipt> receiptSet;
 
     @Transient
+    @JsonIgnore
     private MultipartFile file;
 
     @PrePersist
@@ -319,6 +326,15 @@ public class Course implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    @XmlTransient
+    public Set<RecepitDetail> getRecepitDetailSet() {
+        return recepitDetailSet;
+    }
+
+    public void setRecepitDetailSet(Set<RecepitDetail> recepitDetailSet) {
+        this.recepitDetailSet = recepitDetailSet;
     }
 
 }

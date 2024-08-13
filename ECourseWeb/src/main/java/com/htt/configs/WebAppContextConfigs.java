@@ -11,6 +11,7 @@ import com.htt.formatters.CourseFormatter;
 import com.htt.formatters.LessonFormatter;
 import com.htt.formatters.TagFormatter;
 import com.htt.formatters.TeacherFormatter;
+import com.htt.formatters.UserFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -82,22 +83,12 @@ public class WebAppContextConfigs implements WebMvcConfigurer{
         registry.addFormatter(new TagFormatter());
         registry.addFormatter(new CourseFormatter());
         registry.addFormatter(new LessonFormatter());
+        registry.addFormatter(new UserFormatter());
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
-    }
-    
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "dps7wzdje",
-                        "api_key", "617746798111338",
-                        "api_secret", "fd9RqNR0zX5GfzbJd-Rcp1tA8Yo",
-                        "secure", true));
-        return cloudinary;
     }
     
 }

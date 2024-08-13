@@ -5,6 +5,7 @@
 package com.htt.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,14 +41,20 @@ public class Enrollment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "progress")
-    private Long progress;
+    @Column(name = "enrollmentDate", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date enrollmentDate;
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
     private Course courseId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
+
+    @PrePersist
+    protected void onCreate() {
+        this.enrollmentDate = new Date();
+    }
 
     public Enrollment() {
     }
@@ -59,14 +69,6 @@ public class Enrollment implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Long getProgress() {
-        return progress;
-    }
-
-    public void setProgress(Long progress) {
-        this.progress = progress;
     }
 
     public Course getCourseId() {
@@ -109,5 +111,19 @@ public class Enrollment implements Serializable {
     public String toString() {
         return "com.htt.pojo.Enrollment[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the enrollmentDate
+     */
+    public Date getEnrollmentDate() {
+        return enrollmentDate;
+    }
+
+    /**
+     * @param enrollmentDate the enrollmentDate to set
+     */
+    public void setEnrollmentDate(Date enrollmentDate) {
+        this.enrollmentDate = enrollmentDate;
+    }
+
 }
