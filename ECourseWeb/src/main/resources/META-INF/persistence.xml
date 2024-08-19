@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="com.ecourse_ECourseWeb_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.ecourse.pojo.Certification</class>
+    <class>com.ecourse.pojo.Tag</class>
+    <class>com.ecourse.pojo.User</class>
+    <class>com.ecourse.pojo.Category</class>
+    <class>com.ecourse.pojo.Choice</class>
+    <class>com.ecourse.pojo.Video</class>
+    <class>com.ecourse.pojo.Essay</class>
+    <class>com.ecourse.pojo.Lesson</class>
+    <class>com.ecourse.pojo.Teacher</class>
+    <class>com.ecourse.pojo.Receipt</class>
+    <class>com.ecourse.pojo.Document</class>
+    <class>com.ecourse.pojo.Enrollment</class>
+    <class>com.ecourse.pojo.Question</class>
+    <class>com.ecourse.pojo.Score</class>
+    <class>com.ecourse.pojo.Assignment</class>
+    <class>com.ecourse.pojo.Course</class>
+    <class>com.ecourse.pojo.Answerchoice</class>
+    <class>com.ecourse.ecourseweb.Video</class>
+    <class>com.ecourse.ecourseweb.Document</class>
+    <class>com.ecourse.ecourseweb.Essay</class>
+    <class>com.ecourse.ecourseweb.Question</class>
+    <class>com.ecourse.ecourseweb.Enrollment</class>
+    <class>com.ecourse.ecourseweb.Course</class>
+    <class>com.ecourse.ecourseweb.Score</class>
+    <class>com.ecourse.ecourseweb.Certification</class>
+    <class>com.ecourse.ecourseweb.Tag</class>
+    <class>com.ecourse.ecourseweb.Assignment</class>
+    <class>com.ecourse.ecourseweb.Receipt</class>
+    <class>com.ecourse.ecourseweb.Category</class>
+    <class>com.ecourse.ecourseweb.Teacher</class>
+    <class>com.ecourse.ecourseweb.User</class>
+    <class>com.ecourse.ecourseweb.Answerchoice</class>
+    <class>com.ecourse.ecourseweb.Choice</class>
+    <class>com.ecourse.ecourseweb.Lesson</class>
+    <class>com.ecourse.pojo.RecepitDetail</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ecoursedb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Admin@123"/>
+    </properties>
+  </persistence-unit>
+</persistence>
