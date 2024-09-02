@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -20,14 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
     @Autowired
     private BCryptPasswordEncoder passEncoder;
+
     @Override
     public User getUserByUsername(String username) {
-         Session s = this.factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createNamedQuery("User.findByUsername");
         q.setParameter("username", username);
 
@@ -36,8 +39,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public boolean authUser(String username, String password) {
-          User  u = this.getUserByUsername(username);
-        
+        User u = this.getUserByUsername(username);
+
         return this.passEncoder.matches(password, u.getPassword());
     }
 
@@ -45,8 +48,14 @@ public class UserRepositoryImpl implements UserRepository{
     public User addUser(User u) {
         Session s = this.factory.getObject().getCurrentSession();
         s.save(u);
-        
+
         return u;
     }
-    
+
+    @Override
+    public User getUserById(Long id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(User.class, id);
+    }
+
 }

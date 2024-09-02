@@ -4,12 +4,17 @@
  */
 package com.ecourse.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author Admin
  */
 public class CourseDTO {
-    private int id;
+
+    private Long id;
     private String name;
     private float price;
     private String image;
@@ -17,17 +22,24 @@ public class CourseDTO {
     private TeacherDTO teacher;
     private TagDTO tag;
     private CategoryDTO category;
+    private String description;
+    private Boolean isActive;
+    private Date createdDate;
+    private Date updatedDate;
+    @JsonIgnore
+    private MultipartFile file;
+
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,7 +98,6 @@ public class CourseDTO {
 //    public void setTeacher(TeacherDTO teacher) {
 //        this.teacher = teacher;
 //    }
-
     /**
      * @return the tag
      */
@@ -141,5 +152,61 @@ public class CourseDTO {
      */
     public void setCategory(CategoryDTO category) {
         this.category = category;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the isActive
+     */
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    /**
+     * @param isActive the isActive to set
+     */
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * @return the updatedDate
+     */
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+     * @param updatedDate the updatedDate to set
+     */
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

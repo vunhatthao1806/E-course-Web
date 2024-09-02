@@ -15,11 +15,13 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import java.text.ParseException;
 import java.util.Date;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Admin
  */
+@Component
 public class JwtService {
     public static final String SECRET_KEY = "11111111111111111111111111111111";
     public static final byte[] SHARED_SECRET_KEY = SECRET_KEY.getBytes();

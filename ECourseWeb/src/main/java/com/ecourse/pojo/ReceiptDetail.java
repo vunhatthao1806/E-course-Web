@@ -23,15 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Admin
  */
 @Entity
-@Table(name = "recepit_detail")
+@Table(name = "receipt_detail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RecepitDetail.findAll", query = "SELECT r FROM RecepitDetail r"),
-    @NamedQuery(name = "RecepitDetail.findById", query = "SELECT r FROM RecepitDetail r WHERE r.id = :id"),
-    @NamedQuery(name = "RecepitDetail.findByQuantity", query = "SELECT r FROM RecepitDetail r WHERE r.quantity = :quantity"),
-    @NamedQuery(name = "RecepitDetail.findByPrice", query = "SELECT r FROM RecepitDetail r WHERE r.price = :price"),
-    @NamedQuery(name = "RecepitDetail.findByDiscount", query = "SELECT r FROM RecepitDetail r WHERE r.discount = :discount")})
-public class RecepitDetail implements Serializable {
+    @NamedQuery(name = "ReceiptDetail.findAll", query = "SELECT r FROM ReceiptDetail r"),
+    @NamedQuery(name = "ReceiptDetail.findById", query = "SELECT r FROM ReceiptDetail r WHERE r.id = :id"),
+    @NamedQuery(name = "ReceiptDetail.findByQuantity", query = "SELECT r FROM ReceiptDetail r WHERE r.quantity = :quantity"),
+    @NamedQuery(name = "ReceiptDetail.findByPrice", query = "SELECT r FROM ReceiptDetail r WHERE r.price = :price")})
+public class ReceiptDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +43,6 @@ public class RecepitDetail implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private Float price;
-    @Column(name = "discount")
-    private Float discount;
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
     private Course courseId;
@@ -53,10 +50,10 @@ public class RecepitDetail implements Serializable {
     @ManyToOne
     private Receipt receiptId;
 
-    public RecepitDetail() {
+    public ReceiptDetail() {
     }
 
-    public RecepitDetail(Integer id) {
+    public ReceiptDetail(Integer id) {
         this.id = id;
     }
 
@@ -82,14 +79,6 @@ public class RecepitDetail implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Float getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Float discount) {
-        this.discount = discount;
     }
 
     public Course getCourseId() {
@@ -118,10 +107,10 @@ public class RecepitDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RecepitDetail)) {
+        if (!(object instanceof ReceiptDetail)) {
             return false;
         }
-        RecepitDetail other = (RecepitDetail) object;
+        ReceiptDetail other = (ReceiptDetail) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -130,7 +119,7 @@ public class RecepitDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ecourse.pojo.RecepitDetail[ id=" + id + " ]";
+        return "com.ecourse.pojo.ReceiptDetail[ id=" + id + " ]";
     }
     
 }

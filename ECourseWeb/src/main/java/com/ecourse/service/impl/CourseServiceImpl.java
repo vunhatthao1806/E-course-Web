@@ -64,12 +64,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourseById(int id) {
+    public Course getCourseById(Long id) {
         return this.courseRepo.getCourseById(id);
     }
 
     @Override
-    public void deleteCourse(int id) {
+    public void deleteCourse(Long id) {
        this.courseRepo.deleteCourse(id);
     }
    

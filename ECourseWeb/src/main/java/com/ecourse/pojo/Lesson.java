@@ -4,6 +4,7 @@
  */
 package com.ecourse.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,7 +51,7 @@ public class Lesson implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -69,35 +72,48 @@ public class Lesson implements Serializable {
     @Column(name = "updatedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
-    @OneToMany(mappedBy = "lessionId")
-    private Set<Assignment> assignmentSet;
-    @OneToMany(mappedBy = "lessonId")
-    private Set<Document> documentSet;
+//    @OneToMany(mappedBy = "lessionId")
+//    private Set<Assignment> assignmentSet;
+//    @OneToMany(mappedBy = "lessonId")
+//    private Set<Document> documentSet;
+
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
     private Course courseId;
+
     @OneToMany(mappedBy = "lessonId")
+    @JsonIgnore
     private Set<Video> videoSet;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedDate = new Date();
+    }
 
     public Lesson() {
     }
 
-    public Lesson(Integer id) {
+    public Lesson(Long id) {
         this.id = id;
     }
 
-    public Lesson(Integer id, String name, Date createdDate, Date updatedDate) {
+    public Lesson(Long id, String name, Date createdDate, Date updatedDate) {
         this.id = id;
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -141,23 +157,23 @@ public class Lesson implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    @XmlTransient
-    public Set<Assignment> getAssignmentSet() {
-        return assignmentSet;
-    }
-
-    public void setAssignmentSet(Set<Assignment> assignmentSet) {
-        this.assignmentSet = assignmentSet;
-    }
-
-    @XmlTransient
-    public Set<Document> getDocumentSet() {
-        return documentSet;
-    }
-
-    public void setDocumentSet(Set<Document> documentSet) {
-        this.documentSet = documentSet;
-    }
+//    @XmlTransient
+//    public Set<Assignment> getAssignmentSet() {
+//        return assignmentSet;
+//    }
+//
+//    public void setAssignmentSet(Set<Assignment> assignmentSet) {
+//        this.assignmentSet = assignmentSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Document> getDocumentSet() {
+//        return documentSet;
+//    }
+//
+//    public void setDocumentSet(Set<Document> documentSet) {
+//        this.documentSet = documentSet;
+//    }
 
     public Course getCourseId() {
         return courseId;
@@ -200,5 +216,5 @@ public class Lesson implements Serializable {
     public String toString() {
         return "com.ecourse.pojo.Lesson[ id=" + id + " ]";
     }
-    
+
 }

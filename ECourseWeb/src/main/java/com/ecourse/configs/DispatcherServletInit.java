@@ -4,6 +4,7 @@
  */
 package com.ecourse.configs;
 
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -17,7 +18,8 @@ public class DispatcherServletInit extends AbstractAnnotationConfigDispatcherSer
         return new Class[]{
             HibernateConfigs.class,
             TilesConfigs.class,
-            SpringSecurityConfigs.class
+            SpringSecurityConfigs.class,
+            JwtSecurityConfig.class
         };
     }
 

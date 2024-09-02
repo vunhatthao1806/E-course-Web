@@ -1,0 +1,27 @@
+.card-border-video {
+    border: 1px solid black;    
+    padding: 20px;
+    cursor: pointer;
+}
+
+.card-border-video:hover {
+    background-color: antiquewhite;
+}
+
+.card-body-watched {
+    background-color: #d4edda; /* Màu nền cho video đã xem */
+}
+
+.card-body-not-watched {
+    background-color: #f8d7da; /* Màu nền cho video chưa xem */
+}
+
+.button-done {
+    background-color: green !important;
+    color: white !important;
+}
+
+.button-not-done {
+    background-color: red !important;
+    color: white !important;
+}

@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Carousel from "./Carousel";
 import { Button, Card, Spinner } from "react-bootstrap";
 import APIs, { endpoints } from "../configs/APIs";
 import "../css/Home.css";
 import Slider from "react-slick";
 import Arrow from "./Arrow";
+import cookie from "react-cookies";
+import { MyCartContext } from "../App";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [course, setCourse] = useState(null);
+  const [, dispatch] = useContext(MyCartContext);
+  const nav = useNavigate();
   const loadCourse = async () => {
     let res = await APIs.get(endpoints["courses"]);
     setCourse(res.data);
@@ -36,8 +42,31 @@ const Home = () => {
         return "tag-default";
     }
   };
-  if (course === null) return <Spinner animation="grow" variant="primary" />;
+  const addToCart = (p) => {
+    let cart = cookie.load("cart") || null;
+    if (cart === null) cart = {};
 
+    if (!(p.id in cart)) {
+      cart[p.id] = {
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        quantity: 1,
+        discount: p.discount,
+      };
+      cookie.save("cart", cart);
+      dispatch({
+        type: "update",
+      });
+      toast.success("Product added to cart!");
+    } else {
+      toast.error("Product is already in the cart and cannot be added again.");
+    }
+  };
+  if (course === null) return <Spinner animation="grow" variant="primary" />;
+  const handleCardClick = (id) => {
+    nav(`/courses/${id}`);
+  };
   return (
     <>
       <Carousel />
@@ -63,8 +92,19 @@ const Home = () => {
                   {c.tag.name}
                 </div>
               </Card.Text>
-              <Button variant="danger" className="btn">
-                Mua ngay
+              <Button
+                variant="danger"
+                className="btn"
+                onClick={() => handleCardClick(c.id)}
+              >
+                Xem chi tiết
+              </Button>
+              <Button
+                variant="danger"
+                className="btn"
+                onClick={() => addToCart(c)}
+              >
+                Thêm vào giỏ hàng
               </Button>
             </Card.Body>
           </Card>

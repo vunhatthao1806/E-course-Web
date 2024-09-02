@@ -13,8 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author Admin
  */
-public interface UserService extends UserDetailsService{
+public interface UserService extends UserDetailsService {
+
     User getUserByUsername(String username);
+
     boolean authUser(String username, String password);
+
     User addUser(Map<String, String> params, MultipartFile avatar);
+
+    User getUserById(Long id);
 }

@@ -6,7 +6,6 @@ package com.ecourse.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Receipt.findAll", query = "SELECT r FROM Receipt r"),
     @NamedQuery(name = "Receipt.findById", query = "SELECT r FROM Receipt r WHERE r.id = :id"),
-    @NamedQuery(name = "Receipt.findByName", query = "SELECT r FROM Receipt r WHERE r.name = :name"),
+    @NamedQuery(name = "Receipt.findByTotal", query = "SELECT r FROM Receipt r WHERE r.total = :total"),
     @NamedQuery(name = "Receipt.findByCreatedDate", query = "SELECT r FROM Receipt r WHERE r.createdDate = :createdDate")})
 public class Receipt implements Serializable {
 
@@ -48,14 +44,11 @@ public class Receipt implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "total")
+    private float total;
     @Column(name = "createdDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @OneToMany(mappedBy = "receiptId")
-    private Set<RecepitDetail> recepitDetailSet;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
@@ -67,9 +60,9 @@ public class Receipt implements Serializable {
         this.id = id;
     }
 
-    public Receipt(Integer id, String name) {
+    public Receipt(Integer id, float total) {
         this.id = id;
-        this.name = name;
+        this.total = total;
     }
 
     public Integer getId() {
@@ -80,12 +73,12 @@ public class Receipt implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public float getTotal() {
+        return total;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public Date getCreatedDate() {
@@ -94,15 +87,6 @@ public class Receipt implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    @XmlTransient
-    public Set<RecepitDetail> getRecepitDetailSet() {
-        return recepitDetailSet;
-    }
-
-    public void setRecepitDetailSet(Set<RecepitDetail> recepitDetailSet) {
-        this.recepitDetailSet = recepitDetailSet;
     }
 
     public User getUserId() {

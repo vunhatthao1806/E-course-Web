@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tag.findByName", query = "SELECT t FROM Tag t WHERE t.name = :name")})
 public class Tag implements Serializable {
 
+    @OneToMany(mappedBy = "tagId")
+    private Set<Course> courseSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,8 +46,8 @@ public class Tag implements Serializable {
     @Size(max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "tagId", fetch = FetchType.EAGER)
-    private Set<Course> courseSet;
+//    @OneToMany(mappedBy = "tagId", fetch = FetchType.EAGER)
+//    private Set<Course> courseSet;
 
     public Tag() {
     }
@@ -69,14 +72,14 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public Set<Course> getCourseSet() {
-        return courseSet;
-    }
-
-    public void setCourseSet(Set<Course> courseSet) {
-        this.courseSet = courseSet;
-    }
+//    @XmlTransient
+//    public Set<Course> getCourseSet() {
+//        return courseSet;
+//    }
+//
+//    public void setCourseSet(Set<Course> courseSet) {
+//        this.courseSet = courseSet;
+//    }
 
     @Override
     public int hashCode() {
@@ -101,6 +104,15 @@ public class Tag implements Serializable {
     @Override
     public String toString() {
         return "com.ecourse.pojo.Tag[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Set<Course> getCourseSet() {
+        return courseSet;
+    }
+
+    public void setCourseSet(Set<Course> courseSet) {
+        this.courseSet = courseSet;
     }
     
 }

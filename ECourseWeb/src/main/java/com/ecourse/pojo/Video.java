@@ -5,6 +5,7 @@
 package com.ecourse.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -34,12 +39,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Video.findByDescription", query = "SELECT v FROM Video v WHERE v.description = :description")})
 public class Video implements Serializable {
 
+//    @OneToMany(mappedBy = "video")
+//    private Set<Videocomplete> videocompleteSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -54,24 +62,27 @@ public class Video implements Serializable {
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     @ManyToOne
     private Lesson lessonId;
+    
+    @Transient
+    private MultipartFile file;
 
     public Video() {
     }
 
-    public Video(Integer id) {
+    public Video(Long id) {
         this.id = id;
     }
 
-    public Video(Integer id, String name) {
+    public Video(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -131,5 +142,28 @@ public class Video implements Serializable {
     public String toString() {
         return "com.ecourse.pojo.Video[ id=" + id + " ]";
     }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+//    @XmlTransient
+//    public Set<Videocomplete> getVideocompleteSet() {
+//        return videocompleteSet;
+//    }
+//
+//    public void setVideocompleteSet(Set<Videocomplete> videocompleteSet) {
+//        this.videocompleteSet = videocompleteSet;
+//    }
     
 }

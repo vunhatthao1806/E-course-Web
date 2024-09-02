@@ -25,7 +25,7 @@ public interface CourseRepository {
 
     void addTeacher(Teacher c);
 
-    Course getCourseById(int id);
+    Course getCourseById(Long id);
 
-    void deleteCourse(int id);
+    void deleteCourse(Long id);
 }

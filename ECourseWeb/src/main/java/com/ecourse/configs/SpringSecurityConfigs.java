@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 /**
  *
  * @author Admin
@@ -32,7 +33,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.ecourse.components"
 })
 @Order(2)
-public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter{
+public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -40,7 +42,7 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
@@ -63,15 +65,14 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter{
             throws Exception {
         http.formLogin().usernameParameter("username").passwordParameter("password");
         http.formLogin().defaultSuccessUrl("/").failureUrl("/login?error");
-        
+
         http.logout().logoutSuccessUrl("/login");
-        
+
         http.exceptionHandling().accessDeniedPage("/login?accessDenied");
-        
+
         http.authorizeRequests().antMatchers("/api/**").permitAll()
                 .antMatchers("/**").hasRole("ADMIN");
-        http.authorizeRequests().antMatchers("/**").permitAll()
-                .antMatchers("/**").hasRole("ADMIN");
+
         http.csrf().disable();
     }
 }

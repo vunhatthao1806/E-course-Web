@@ -4,6 +4,7 @@
  */
 package com.ecourse.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -46,12 +47,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")})
 public class User implements Serializable {
 
+//    @OneToMany(mappedBy = "user")
+//    private Set<Videocomplete> videocompleteSet;
+//
+//    @OneToMany(mappedBy = "userId")
+//    private Set<CourseProcess> courseprocessSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -95,28 +102,35 @@ public class User implements Serializable {
     @Column(name = "phoneNumber")
     private String phoneNumber;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Answerchoice> answerchoiceSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Certification> certificationSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Enrollment> enrollmentSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Score> scoreSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Teacher> teacherSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Essay> essaySet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Receipt> receiptSet;
 
     public User() {
     }
 
-    public User(Integer id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public User(Integer id, String username, String role, String firstName, String lastName, String email, String phoneNumber) {
+    public User(Long id, String username, String role, String firstName, String lastName, String email, String phoneNumber) {
         this.id = id;
         this.username = username;
         this.role = role;
@@ -126,11 +140,11 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -301,5 +315,23 @@ public class User implements Serializable {
     public String toString() {
         return "com.ecourse.pojo.User[ id=" + id + " ]";
     }
+
+//    @XmlTransient
+//    public Set<CourseProcess> getCourseprocessSet() {
+//        return courseprocessSet;
+//    }
+//
+//    public void setCourseprocessSet(Set<CourseProcess> courseprocessSet) {
+//        this.courseprocessSet = courseprocessSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Videocomplete> getVideocompleteSet() {
+//        return videocompleteSet;
+//    }
+//
+//    public void setVideocompleteSet(Set<Videocomplete> videocompleteSet) {
+//        this.videocompleteSet = videocompleteSet;
+//    }
     
 }

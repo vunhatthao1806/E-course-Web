@@ -96,7 +96,7 @@ const CourseSearch = () => {
                   <strong>Price: </strong>
                   {(r.price * (1 - r.discount / 100)).toLocaleString()} VNĐ
                   <Button variant="danger" className="btn">
-                    Mua ngay
+                    Thêm vào giỏ hàng
                   </Button>
                 </Card.Text>
               </Card.Body>

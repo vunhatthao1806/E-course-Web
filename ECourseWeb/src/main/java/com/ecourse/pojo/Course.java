@@ -20,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,12 +52,23 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Course.findByImage", query = "SELECT c FROM Course c WHERE c.image = :image")})
 public class Course implements Serializable {
 
+//    @OneToMany(mappedBy = "course")
+//    private Set<Lesson> lessonSet;
+//    @OneToMany(mappedBy = "course")
+//    private Set<Video> videoSet;
+//
+//    @OneToMany(mappedBy = "courseId")
+//    private Set<CourseProcess> courseprocessSet;
+//
+//    @OneToMany(mappedBy = "courseId")
+//    private Set<ReceiptDetail> receiptDetailSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -87,21 +100,21 @@ public class Course implements Serializable {
     @Size(max = 255)
     @Column(name = "image")
     private String image;
-    @OneToMany(mappedBy = "courseId")
-    @JsonIgnore
-    private Set<Lesson> lessonSet;
-    @OneToMany(mappedBy = "courseId")
-    @JsonIgnore
-    private Set<Video> videoSet;
-    @OneToMany(mappedBy = "courseId")
-    @JsonIgnore
-    private Set<Certification> certificationSet;
-    @OneToMany(mappedBy = "courseId")
-    @JsonIgnore
-    private Set<Enrollment> enrollmentSet;
-    @OneToMany(mappedBy = "courseId")
-    @JsonIgnore
-    private Set<RecepitDetail> recepitDetailSet;
+//    @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
+//    private Set<Lesson> lessonSet;
+//    @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
+//    private Set<Video> videoSet;
+//    @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
+//    private Set<Certification> certificationSet;
+//    @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
+//    private Set<Enrollment> enrollmentSet;
+//    @OneToMany(mappedBy = "courseId")
+//    @JsonIgnore
+//    private Set<ReceiptDetail> recepitDetailSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
   
@@ -115,14 +128,24 @@ public class Course implements Serializable {
     private Teacher teacherId;
     @Transient
     private MultipartFile file;
+    
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedDate = new Date();
+    }
     public Course() {
     }
 
-    public Course(Integer id) {
+    public Course(Long id) {
         this.id = id;
     }
 
-    public Course(Integer id, String name, Date createdDate, Date updatedDate, float price, float discount) {
+    public Course(Long id, String name, Date createdDate, Date updatedDate, float price, float discount) {
         this.id = id;
         this.name = name;
         this.createdDate = createdDate;
@@ -131,11 +154,11 @@ public class Course implements Serializable {
         this.discount = discount;
     }
    
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -203,50 +226,50 @@ public class Course implements Serializable {
         this.image = image;
     }
 
-    @XmlTransient
-    public Set<Lesson> getLessonSet() {
-        return lessonSet;
-    }
+//    @XmlTransient
+//    public Set<Lesson> getLessonSet() {
+//        return lessonSet;
+//    }
+//
+//    public void setLessonSet(Set<Lesson> lessonSet) {
+//        this.lessonSet = lessonSet;
+//    }
 
-    public void setLessonSet(Set<Lesson> lessonSet) {
-        this.lessonSet = lessonSet;
-    }
-
-    @XmlTransient
-    public Set<Video> getVideoSet() {
-        return videoSet;
-    }
-
-    public void setVideoSet(Set<Video> videoSet) {
-        this.videoSet = videoSet;
-    }
-
-    @XmlTransient
-    public Set<Certification> getCertificationSet() {
-        return certificationSet;
-    }
-
-    public void setCertificationSet(Set<Certification> certificationSet) {
-        this.certificationSet = certificationSet;
-    }
-
-    @XmlTransient
-    public Set<Enrollment> getEnrollmentSet() {
-        return enrollmentSet;
-    }
-
-    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
-        this.enrollmentSet = enrollmentSet;
-    }
-
-    @XmlTransient
-    public Set<RecepitDetail> getRecepitDetailSet() {
-        return recepitDetailSet;
-    }
-
-    public void setRecepitDetailSet(Set<RecepitDetail> recepitDetailSet) {
-        this.recepitDetailSet = recepitDetailSet;
-    }
+//    @XmlTransient
+//    public Set<Video> getVideoSet() {
+//        return videoSet;
+//    }
+//
+//    public void setVideoSet(Set<Video> videoSet) {
+//        this.videoSet = videoSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Certification> getCertificationSet() {
+//        return certificationSet;
+//    }
+//
+//    public void setCertificationSet(Set<Certification> certificationSet) {
+//        this.certificationSet = certificationSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Enrollment> getEnrollmentSet() {
+//        return enrollmentSet;
+//    }
+//
+//    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
+//        this.enrollmentSet = enrollmentSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<ReceiptDetail> getRecepitDetailSet() {
+//        return recepitDetailSet;
+//    }
+//
+//    public void setRecepitDetailSet(Set<ReceiptDetail> recepitDetailSet) {
+//        this.recepitDetailSet = recepitDetailSet;
+//    }
 
     public Category getCategoryId() {
         return categoryId;
@@ -310,5 +333,41 @@ public class Course implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+//    @XmlTransient
+//    public Set<ReceiptDetail> getReceiptDetailSet() {
+//        return receiptDetailSet;
+//    }
+//
+//    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
+//        this.receiptDetailSet = receiptDetailSet;
+//    }
+
+//    @XmlTransient
+//    public Set<CourseProcess> getCourseprocessSet() {
+//        return courseprocessSet;
+//    }
+//
+//    public void setCourseprocessSet(Set<CourseProcess> courseprocessSet) {
+//        this.courseprocessSet = courseprocessSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Lesson> getLessonSet() {
+//        return lessonSet;
+//    }
+//
+//    public void setLessonSet(Set<Lesson> lessonSet) {
+//        this.lessonSet = lessonSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Video> getVideoSet() {
+//        return videoSet;
+//    }
+//
+//    public void setVideoSet(Set<Video> videoSet) {
+//        this.videoSet = videoSet;
+//    }
     
 }
