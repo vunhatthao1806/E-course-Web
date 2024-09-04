@@ -52,6 +52,14 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Course.findByImage", query = "SELECT c FROM Course c WHERE c.image = :image")})
 public class Course implements Serializable {
 
+//    @OneToMany(mappedBy = "courseId")
+//    private Set<Enrollment> enrollmentSet;
+//
+//    @OneToMany(mappedBy = "courseId")
+//    private Set<Assignment> assignmentSet;
+//    @OneToMany(mappedBy = "courseId")
+//    private Set<Lesson> lessonSet;
+
 //    @OneToMany(mappedBy = "course")
 //    private Set<Lesson> lessonSet;
 //    @OneToMany(mappedBy = "course")
@@ -369,5 +377,32 @@ public class Course implements Serializable {
 //    public void setVideoSet(Set<Video> videoSet) {
 //        this.videoSet = videoSet;
 //    }
-    
+
+//    @XmlTransient
+//    public Set<Assignment> getAssignmentSet() {
+//        return assignmentSet;
+//    }
+//
+//    public void setAssignmentSet(Set<Assignment> assignmentSet) {
+//        this.assignmentSet = assignmentSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Lesson> getLessonSet() {
+//        return lessonSet;
+//    }
+//
+//    public void setLessonSet(Set<Lesson> lessonSet) {
+//        this.lessonSet = lessonSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Enrollment> getEnrollmentSet() {
+//        return enrollmentSet;
+//    }
+//
+//    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
+//        this.enrollmentSet = enrollmentSet;
+//    }
+//    
 }

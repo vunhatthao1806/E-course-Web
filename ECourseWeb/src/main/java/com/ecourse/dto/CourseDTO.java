@@ -19,7 +19,7 @@ public class CourseDTO {
     private float price;
     private String image;
     private float discount;
-    private TeacherDTO teacher;
+    private TeacherDTO teacher; 
     private TagDTO tag;
     private CategoryDTO category;
     private String description;

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import {
+  Alert,
   Button,
   Card,
   Col,
@@ -11,12 +12,13 @@ import {
 } from "react-bootstrap";
 import "../css/Lesson.css";
 import ReactPlayer from "react-player";
-import { MyUserContext } from "../../App";
+
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { format, isAfter } from "date-fns";
 import { authAPIs, endpoints } from "../configs/APIs";
+import { MyUserContext } from "../App";
 
 const Lesson = () => {
   const { courseId } = useParams();
@@ -92,7 +94,66 @@ const Lesson = () => {
       console.log(err);
     }
   };
+  // const ProgressClick = async () => {
+  //   let res = await authAPIs().get(endpoints["progress"](courseId, userId));
+  //   let progressValue = res.data;
+  //   if (progressValue === 100) {
+  //     try {
+  //       let res2 = await authAPIs().post(
+  //         endpoints["create-certificate"](courseId, userId),
+  //         {
+  //           responseType: "blob", // Để nhận dữ liệu dưới dạng Blob
+  //         }
+  //       );
 
+  //       // Debugging: Log Blob type and size
+  //       console.log("Received Blob:", res2.data);
+  //       console.log("Blob Type:", res2.data.type);
+  //       console.log("Blob Size:", res2.data.size);
+
+  //       // Create a new Blob object and generate a URL
+  //       const pdfBlob = new Blob([res2.data], { type: "application/pdf" });
+  //       const pdfUrl = URL.createObjectURL(pdfBlob);
+
+  //       // Open the PDF in a new tab or window
+  //       window.open(pdfUrl, "_blank");
+
+  //       // Optional: If you want to force download instead of opening in a new tab
+  //       // const link = document.createElement('a');
+  //       // link.href = pdfUrl;
+  //       // link.setAttribute('download', 'certificate.pdf');
+  //       // document.body.appendChild(link);
+  //       // link.click();
+  //       // link.parentNode.removeChild(link);
+  //     } catch (err) {
+  //       console.log(err);
+  //       toast.error("Failed to generate or download certificate.");
+  //     }
+  //   } else {
+  //     toast.error("Bạn chưa hoàn thành khóa học.");
+  //   }
+  // };
+  const ProgressClick = async () => {
+    let res = await authAPIs().get(endpoints["progress"](courseId, userId));
+    let progressValue = res.data;
+    if (progressValue === 100) {
+      try {
+        let res2 = await authAPIs().post(
+          endpoints["create-certificate"](courseId, userId)
+        );
+
+        const baseUrl = "http://localhost:8080/";
+        const pdfUrl = `${baseUrl}${res2.data}`;
+        console.log("PDF URL:", pdfUrl);
+        window.open(pdfUrl);
+      } catch (err) {
+        console.log(err);
+        toast.error("Có lỗi trong quá trình tải file pdf.");
+      }
+    } else {
+      toast.error("Bạn chưa hoàn thành khóa học.");
+    }
+  };
   useEffect(() => {
     if (assignments.length > 0) {
       assignments.forEach((assignment) => {
@@ -372,7 +433,10 @@ const Lesson = () => {
                       </Card.Body>
                     );
                   })}
-                  <Card.Footer className="text-muted">hhhh</Card.Footer>
+                  {/* <Card.Footer className="text-muted">
+                    Nhận chứng chỉ
+                  </Card.Footer> */}
+                  <Button onClick={ProgressClick}>Nhận chứng chỉ</Button>
                 </Card>
               </>
             )}

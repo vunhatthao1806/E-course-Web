@@ -4,15 +4,13 @@
  */
 package com.ecourse.repository;
 
-import com.ecourse.pojo.Cart;
-import com.ecourse.pojo.Receipt;
+import com.ecourse.pojo.ReceiptDetail;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public interface ReceiptRepository {
-    void addReceipt(List<Cart> carts);
-    List<Receipt> findByUserId(Long userId);
+public interface ReceiptDetailRepository {
+    List<ReceiptDetail> findByReceiptId(Long receiptId);
 }

@@ -42,7 +42,7 @@ public class Certification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -63,21 +63,21 @@ public class Certification implements Serializable {
     public Certification() {
     }
 
-    public Certification(Integer id) {
+    public Certification(Long id) {
         this.id = id;
     }
 
-    public Certification(Integer id, String name, Date issuanceDate) {
+    public Certification(Long id, String name, Date issuanceDate) {
         this.id = id;
         this.name = name;
         this.issuanceDate = issuanceDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

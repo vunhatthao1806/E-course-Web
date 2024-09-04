@@ -34,8 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tag.findByName", query = "SELECT t FROM Tag t WHERE t.name = :name")})
 public class Tag implements Serializable {
 
-    @OneToMany(mappedBy = "tagId")
-    private Set<Course> courseSet;
+//    @OneToMany(mappedBy = "tagId")
+//    private Set<Assignment> assignmentSet;
+//
+//    @OneToMany(mappedBy = "tagId")
+//    private Set<Course> courseSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -106,13 +109,22 @@ public class Tag implements Serializable {
         return "com.ecourse.pojo.Tag[ id=" + id + " ]";
     }
 
-    @XmlTransient
-    public Set<Course> getCourseSet() {
-        return courseSet;
-    }
-
-    public void setCourseSet(Set<Course> courseSet) {
-        this.courseSet = courseSet;
-    }
-    
+//    @XmlTransient
+//    public Set<Course> getCourseSet() {
+//        return courseSet;
+//    }
+//
+//    public void setCourseSet(Set<Course> courseSet) {
+//        this.courseSet = courseSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Assignment> getAssignmentSet() {
+//        return assignmentSet;
+//    }
+//
+//    public void setAssignmentSet(Set<Assignment> assignmentSet) {
+//        this.assignmentSet = assignmentSet;
+//    }
+//    
 }

@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Admin
  */
 @Entity
-@Table(name = "enrollment")
+@Table(name = "userassignmentdone")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Enrollment.findAll", query = "SELECT e FROM Enrollment e"),
-    @NamedQuery(name = "Enrollment.findById", query = "SELECT e FROM Enrollment e WHERE e.id = :id"),
-    @NamedQuery(name = "Enrollment.findByEnrollmentDate", query = "SELECT e FROM Enrollment e WHERE e.enrollmentDate = :enrollmentDate")})
-public class Enrollment implements Serializable {
+    @NamedQuery(name = "Userassignmentdone.findAll", query = "SELECT u FROM Userassignmentdone u"),
+    @NamedQuery(name = "Userassignmentdone.findById", query = "SELECT u FROM Userassignmentdone u WHERE u.id = :id"),
+    @NamedQuery(name = "Userassignmentdone.findByCreatedDate", query = "SELECT u FROM Userassignmentdone u WHERE u.createdDate = :createdDate")})
+public class Userassignmentdone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,25 +41,25 @@ public class Enrollment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-    @Column(name = "enrollmentDate")
+    @Column(name = "createdDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date enrollmentDate;
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Date createdDate;
+    @JoinColumn(name = "assignment_id", referencedColumnName = "id")
     @ManyToOne
-    private Course courseId;
+    private Assignment assignmentId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
 
     @PrePersist
     protected void onCreate() {
-        this.enrollmentDate = new Date();
+        this.createdDate = new Date();
     }
 
-    public Enrollment() {
+    public Userassignmentdone() {
     }
 
-    public Enrollment(Long id) {
+    public Userassignmentdone(Long id) {
         this.id = id;
     }
 
@@ -71,20 +71,20 @@ public class Enrollment implements Serializable {
         this.id = id;
     }
 
-    public Date getEnrollmentDate() {
-        return enrollmentDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setEnrollmentDate(Date enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public Course getCourseId() {
-        return courseId;
+    public Assignment getAssignmentId() {
+        return assignmentId;
     }
 
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
+    public void setAssignmentId(Assignment assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
     public User getUserId() {
@@ -105,10 +105,10 @@ public class Enrollment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Enrollment)) {
+        if (!(object instanceof Userassignmentdone)) {
             return false;
         }
-        Enrollment other = (Enrollment) object;
+        Userassignmentdone other = (Userassignmentdone) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -117,7 +117,7 @@ public class Enrollment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ecourse.pojo.Enrollment[ id=" + id + " ]";
+        return "com.ecourse.pojo.Userassignmentdone[ id=" + id + " ]";
     }
 
 }

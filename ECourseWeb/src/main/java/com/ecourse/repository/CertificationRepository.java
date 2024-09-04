@@ -4,15 +4,14 @@
  */
 package com.ecourse.repository;
 
-import com.ecourse.pojo.Cart;
-import com.ecourse.pojo.Receipt;
-import java.util.List;
+import com.ecourse.pojo.Course;
+import com.ecourse.pojo.User;
 
 /**
  *
  * @author Admin
  */
-public interface ReceiptRepository {
-    void addReceipt(List<Cart> carts);
-    List<Receipt> findByUserId(Long userId);
+public interface CertificationRepository {
+    String createCertificate(Long userId, Long courseId);
+    String createCertificatePDF(User user, Course course, Long certificateId );
 }

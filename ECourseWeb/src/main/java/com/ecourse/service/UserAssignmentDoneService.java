@@ -4,15 +4,16 @@
  */
 package com.ecourse.service;
 
-import com.ecourse.pojo.Cart;
-import com.ecourse.pojo.Receipt;
+import com.ecourse.pojo.Userassignmentdone;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public interface ReceiptService {
-    void addReceipt(List<Cart> carts);
-    List<Receipt> findByUserId(Long userId);
+public interface UserAssignmentDoneService {
+
+    List<Userassignmentdone> getAllByUserAndAssignmentId(Long userId, Long assignmentId);
+
+    Long countCompletedAssignments(Long assignmentId);
 }

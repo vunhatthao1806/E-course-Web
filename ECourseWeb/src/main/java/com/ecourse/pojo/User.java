@@ -101,27 +101,27 @@ public class User implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Answerchoice> answerchoiceSet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Certification> certificationSet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Enrollment> enrollmentSet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Score> scoreSet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Teacher> teacherSet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Essay> essaySet;
-    @OneToMany(mappedBy = "userId")
-    @JsonIgnore
-    private Set<Receipt> receiptSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Answerchoice> answerchoiceSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Certification> certificationSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Enrollment> enrollmentSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Score> scoreSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Teacher> teacherSet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Essay> essaySet;
+//    @OneToMany(mappedBy = "userId")
+//    @JsonIgnore
+//    private Set<Receipt> receiptSet;
 
     public User() {
     }
@@ -228,68 +228,68 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    @XmlTransient
-    public Set<Answerchoice> getAnswerchoiceSet() {
-        return answerchoiceSet;
-    }
-
-    public void setAnswerchoiceSet(Set<Answerchoice> answerchoiceSet) {
-        this.answerchoiceSet = answerchoiceSet;
-    }
-
-    @XmlTransient
-    public Set<Certification> getCertificationSet() {
-        return certificationSet;
-    }
-
-    public void setCertificationSet(Set<Certification> certificationSet) {
-        this.certificationSet = certificationSet;
-    }
-
-    @XmlTransient
-    public Set<Enrollment> getEnrollmentSet() {
-        return enrollmentSet;
-    }
-
-    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
-        this.enrollmentSet = enrollmentSet;
-    }
-
-    @XmlTransient
-    public Set<Score> getScoreSet() {
-        return scoreSet;
-    }
-
-    public void setScoreSet(Set<Score> scoreSet) {
-        this.scoreSet = scoreSet;
-    }
-
-    @XmlTransient
-    public Set<Teacher> getTeacherSet() {
-        return teacherSet;
-    }
-
-    public void setTeacherSet(Set<Teacher> teacherSet) {
-        this.teacherSet = teacherSet;
-    }
-
-    @XmlTransient
-    public Set<Essay> getEssaySet() {
-        return essaySet;
-    }
-
-    public void setEssaySet(Set<Essay> essaySet) {
-        this.essaySet = essaySet;
-    }
-
-    @XmlTransient
-    public Set<Receipt> getReceiptSet() {
-        return receiptSet;
-    }
-
-    public void setReceiptSet(Set<Receipt> receiptSet) {
-        this.receiptSet = receiptSet;
-    }
+//    @XmlTransient
+//    public Set<Answerchoice> getAnswerchoiceSet() {
+//        return answerchoiceSet;
+//    }
+//
+//    public void setAnswerchoiceSet(Set<Answerchoice> answerchoiceSet) {
+//        this.answerchoiceSet = answerchoiceSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Certification> getCertificationSet() {
+//        return certificationSet;
+//    }
+//
+//    public void setCertificationSet(Set<Certification> certificationSet) {
+//        this.certificationSet = certificationSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Enrollment> getEnrollmentSet() {
+//        return enrollmentSet;
+//    }
+//
+//    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
+//        this.enrollmentSet = enrollmentSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Score> getScoreSet() {
+//        return scoreSet;
+//    }
+//
+//    public void setScoreSet(Set<Score> scoreSet) {
+//        this.scoreSet = scoreSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Teacher> getTeacherSet() {
+//        return teacherSet;
+//    }
+//
+//    public void setTeacherSet(Set<Teacher> teacherSet) {
+//        this.teacherSet = teacherSet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Essay> getEssaySet() {
+//        return essaySet;
+//    }
+//
+//    public void setEssaySet(Set<Essay> essaySet) {
+//        this.essaySet = essaySet;
+//    }
+//
+//    @XmlTransient
+//    public Set<Receipt> getReceiptSet() {
+//        return receiptSet;
+//    }
+//
+//    public void setReceiptSet(Set<Receipt> receiptSet) {
+//        this.receiptSet = receiptSet;
+//    }
 
     @Override
     public int hashCode() {
@@ -332,6 +332,10 @@ public class User implements Serializable {
 //
 //    public void setVideocompleteSet(Set<Videocomplete> videocompleteSet) {
 //        this.videocompleteSet = videocompleteSet;
+//    }
+
+//    public String getFullName() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
     
 }

@@ -58,25 +58,5 @@ public class ApiPaymentController {
     public void pay(@RequestBody List<Cart> carts){
         this.receiptService.addReceipt(carts);
     }
-     // API để nhận phản hồi từ Momo
-//    @PostMapping("/momo-callback")
-//    public ResponseEntity<String> handleMomoCallback(@RequestBody Map<String, String> params) {
-//        String orderId = params.get("orderId");
-//        String resultCode = params.get("resultCode");
-//        String message = params.get("message");
-//
-//        // Kiểm tra nếu thanh toán thành công (resultCode = 0)
-//        boolean paymentSuccess = "0".equals(resultCode);
-//
-//        // Cập nhật lại Receipt dựa trên orderId và trạng thái thanh toán
-//        boolean updateResult = receiptService.updateReceipt(orderId, paymentSuccess);
-//
-//        if (updateResult) {
-//            return ResponseEntity.ok("Receipt updated successfully");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("Receipt not found or payment failed. Message: " + message);
-//        }
-//    }
-
+  
 }

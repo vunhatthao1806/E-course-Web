@@ -41,7 +41,7 @@ public class Receipt implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "total")
@@ -56,20 +56,20 @@ public class Receipt implements Serializable {
     public Receipt() {
     }
 
-    public Receipt(Integer id) {
+    public Receipt(Long id) {
         this.id = id;
     }
 
-    public Receipt(Integer id, float total) {
+    public Receipt(Long id, float total) {
         this.id = id;
         this.total = total;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

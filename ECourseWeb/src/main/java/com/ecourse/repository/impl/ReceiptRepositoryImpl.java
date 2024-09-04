@@ -43,9 +43,9 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             receipt.setUserId(this.userRepo.getUserByUsername(
                     SecurityContextHolder.getContext().getAuthentication().getName()));
             receipt.setCreatedDate(new Date());
-            
+
             float totalPrice = (float) carts.stream()
-                    .mapToDouble(c ->(c.getPrice() * c.getQuantity() * (1 - c.getDiscount() / 100)))
+                    .mapToDouble(c -> (c.getPrice() * c.getQuantity() * (1 - c.getDiscount() / 100)))
                     .sum();
             receipt.setTotal(totalPrice);
 
@@ -53,7 +53,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
             for (Cart c : carts) {
                 ReceiptDetail d = new ReceiptDetail();
-                
+
                 d.setPrice(c.getPrice());
                 d.setQuantity(c.getQuantity());
                 d.setCourseId(courseRepo.getCourseById(c.getId()));
@@ -62,22 +62,15 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             }
         }
     }
-//    @Override
-//    public void addReceipt(List<Cart> carts) {
-//        if (carts != null) {
-//            Session s = this.factory.getObject().getCurrentSession();
-//            Receipt receipt = new Receipt();
-//            String orderId = UUID.randomUUID().toString();
-//            receipt.setOrderId(orderId);
-//
-//            s.save(receipt);
-//        }
-//    }
-//
-//    @Override
-//    public void updateReceipt(List<Cart> carts) {
-//        
-//    }
-    
+
+    @Override
+    public List<Receipt> findByUserId(Long userId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        String hql = "FROM Receipt WHERE user.id = :userId";
+        return session.createQuery(hql, Receipt.class)
+                .setParameter("userId", userId)
+                .getResultList();
+
+    }
 
 }

@@ -1,19 +1,5 @@
-.card {
-    width: 10rem; /* Giảm kích thước của card */
-    margin: 0 10px; /* Điều chỉnh khoảng cách giữa các card */
-  }
-  
-  .card img {
-    height: 200px; /* Đặt chiều cao cho hình ảnh để các card có chiều cao bằng nhau */
-    object-fit: cover; /* Đảm bảo hình ảnh vừa khít với khung mà không bị méo */
-  }
-  
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 270px; /* Đặt chiều cao cố định cho nội dung của card */
-  }
+
+
   .slick-slide {
     padding: 0 10px; /* Điều chỉnh khoảng cách giữa các card */
   }
@@ -65,4 +51,7 @@
     background-color: #B1AFFF !important; /* Đặt kiểu riêng cho nút */
     color: white !important;
     border: none !important;
+  }
+  .btn{
+    margin: 5px;
   }

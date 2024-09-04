@@ -5,6 +5,7 @@
 package com.ecourse.service.impl;
 
 import com.ecourse.pojo.Cart;
+import com.ecourse.pojo.Receipt;
 import com.ecourse.repository.ReceiptRepository;
 import com.ecourse.service.ReceiptService;
 import java.util.List;
@@ -22,6 +23,11 @@ private ReceiptRepository receiptRepo;
     @Override
     public void addReceipt(List<Cart> carts) {
         this.receiptRepo.addReceipt(carts);
+    }
+
+    @Override
+    public List<Receipt> findByUserId(Long userId) {
+        return this.receiptRepo.findByUserId(userId);
     }
     
 }

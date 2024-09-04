@@ -36,24 +36,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Assignment.findAll", query = "SELECT a FROM Assignment a"),
     @NamedQuery(name = "Assignment.findById", query = "SELECT a FROM Assignment a WHERE a.id = :id"),
-    @NamedQuery(name = "Assignment.findByTag", query = "SELECT a FROM Assignment a WHERE a.tag = :tag"),
     @NamedQuery(name = "Assignment.findByName", query = "SELECT a FROM Assignment a WHERE a.name = :name"),
     @NamedQuery(name = "Assignment.findByCreatedDate", query = "SELECT a FROM Assignment a WHERE a.createdDate = :createdDate"),
     @NamedQuery(name = "Assignment.findByDueDate", query = "SELECT a FROM Assignment a WHERE a.dueDate = :dueDate"),
     @NamedQuery(name = "Assignment.findByStatus", query = "SELECT a FROM Assignment a WHERE a.status = :status")})
 public class Assignment implements Serializable {
 
+//    @OneToMany(mappedBy = "assignmentId")
+//    private Set<Userassignmentdone> userassignmentdoneSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "tag")
-    private String tag;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -67,41 +64,34 @@ public class Assignment implements Serializable {
     private Date dueDate;
     @Column(name = "status")
     private Boolean status;
-    @OneToMany(mappedBy = "assignmentId")
-    private Set<Question> questionSet;
-    @JoinColumn(name = "lession_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
-    private Lesson lessionId;
-    @OneToMany(mappedBy = "assignmentId")
-    private Set<Score> scoreSet;
+    private Course courseId;
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    @ManyToOne
+    private Lesson lessonId;
+    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @ManyToOne
+    private Tag tagId;
 
     public Assignment() {
     }
 
-    public Assignment(Integer id) {
+    public Assignment(Long id) {
         this.id = id;
     }
 
-    public Assignment(Integer id, String tag, String name) {
+    public Assignment(Long id, String name) {
         this.id = id;
-        this.tag = tag;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
     public String getName() {
@@ -136,30 +126,28 @@ public class Assignment implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public Set<Question> getQuestionSet() {
-        return questionSet;
+    public Course getCourseId() {
+        return courseId;
     }
 
-    public void setQuestionSet(Set<Question> questionSet) {
-        this.questionSet = questionSet;
+    public void setCourseId(Course courseId) {
+        this.courseId = courseId;
     }
 
-    public Lesson getLessionId() {
-        return lessionId;
+    public Lesson getLessonId() {
+        return lessonId;
     }
 
-    public void setLessionId(Lesson lessionId) {
-        this.lessionId = lessionId;
+    public void setLessonId(Lesson lessonId) {
+        this.lessonId = lessonId;
     }
 
-    @XmlTransient
-    public Set<Score> getScoreSet() {
-        return scoreSet;
+    public Tag getTagId() {
+        return tagId;
     }
 
-    public void setScoreSet(Set<Score> scoreSet) {
-        this.scoreSet = scoreSet;
+    public void setTagId(Tag tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -186,5 +174,14 @@ public class Assignment implements Serializable {
     public String toString() {
         return "com.ecourse.pojo.Assignment[ id=" + id + " ]";
     }
+
+//    @XmlTransient
+//    public Set<Userassignmentdone> getUserassignmentdoneSet() {
+//        return userassignmentdoneSet;
+//    }
+//
+//    public void setUserassignmentdoneSet(Set<Userassignmentdone> userassignmentdoneSet) {
+//        this.userassignmentdoneSet = userassignmentdoneSet;
+//    }
     
 }

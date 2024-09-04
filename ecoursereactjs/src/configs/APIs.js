@@ -19,6 +19,14 @@ export const endpoints = {
   "user-assignments": (courseId) => `/assignments/courses/${courseId}`,
   userDone: (assignmentId, userId) =>
     `/userdone/assignment/${assignmentId}/user/${userId}`,
+  "get-enrollment": (userId) => `/enrollments/user/${userId}`,
+  addCompleted: "/addVideoComplete",
+  "create-certificate": (courseId, userId) =>
+    `/certification/${courseId}/user/${userId}`,
+  "courses-by-teacher": (teacherId) => `/courses/teacher/${teacherId}`,
+  teachers: "teachers",
+  "assignment-by-course": (courseId) =>
+    `/lecturer/assignments/courses/${courseId}`,
 };
 export const authAPIs = () => {
   return axios.create({

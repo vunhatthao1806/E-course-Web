@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.ecourse.repository;
+package com.ecourse.service;
 
-import com.ecourse.pojo.Cart;
-import com.ecourse.pojo.Receipt;
+import com.ecourse.pojo.ReceiptDetail;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public interface ReceiptRepository {
-    void addReceipt(List<Cart> carts);
-    List<Receipt> findByUserId(Long userId);
+public interface ReceiptDetailService {
+    List<ReceiptDetail> findByReceiptId(Long receiptId);
 }

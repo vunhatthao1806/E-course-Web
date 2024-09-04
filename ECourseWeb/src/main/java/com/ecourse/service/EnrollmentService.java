@@ -4,15 +4,20 @@
  */
 package com.ecourse.service;
 
-import com.ecourse.pojo.Cart;
-import com.ecourse.pojo.Receipt;
+import com.ecourse.pojo.Course;
+import com.ecourse.pojo.Enrollment;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public interface ReceiptService {
-    void addReceipt(List<Cart> carts);
-    List<Receipt> findByUserId(Long userId);
+public interface EnrollmentService {
+
+    List<Enrollment> getAllEnrollments(Long userId, Long courseId);
+
+    List<Enrollment> getEnrollmentByUserId(Long id);
+
+    Long countByCourseId(Long courseId);
+
 }

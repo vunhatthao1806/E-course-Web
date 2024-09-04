@@ -15,16 +15,6 @@ const Cart = () => {
         0
       )
     : 0;
-  const loadPay = async () => {
-    if (cart !== null) {
-      let res = await authAPIs().post(endpoints["pay"], Object.values(cart));
-      if (res.status === 201) {
-        setCart([]);
-        cookie.remove("cart");
-        dispatch({ type: "paid" });
-      }
-    }
-  };
   const createpayment = async () => {
     try {
       let newOrderId = uuidv4();
@@ -51,17 +41,6 @@ const Cart = () => {
       }
     } catch {
       console.error("Tạo thanh toán thất bại!!!");
-    }
-  };
-  const updatepayment = async () => {
-    let res = await authAPIs().post(
-      endpoints["update-payment"],
-      Object.values(cart)
-    );
-    if (res.status === 200) {
-      setCart([]);
-      cookie.remove("cart");
-      dispatch({ type: "paid" });
     }
   };
   return (
