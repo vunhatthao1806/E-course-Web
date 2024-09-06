@@ -22,4 +22,6 @@ public interface UserService extends UserDetailsService {
     User addUser(Map<String, String> params, MultipartFile avatar);
 
     User getUserById(Long id);
+    
+     void addUserGG(String username, String email, String firstName, String lastName);
 }

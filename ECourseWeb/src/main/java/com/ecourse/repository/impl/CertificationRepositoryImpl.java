@@ -19,8 +19,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
@@ -50,7 +48,7 @@ public class CertificationRepositoryImpl implements CertificationRepository {
     public String createCertificate(Long userId, Long courseId) {
         Session s = this.factory.getObject().getCurrentSession();
         User user = userRepo.getUserById(userId);
-        Course course = courseRepo.getCourseById(userId);
+        Course course = courseRepo.getCourseById(courseId);
         Certification certificate = new Certification();
         certificate.setUserId(user);
         certificate.setCourseId(course);

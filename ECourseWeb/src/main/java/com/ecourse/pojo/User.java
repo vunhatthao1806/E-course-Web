@@ -7,7 +7,6 @@ package com.ecourse.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +15,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,19 +39,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findByIsActive", query = "SELECT u FROM User u WHERE u.isActive = :isActive"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")})
+    @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
-
-//    @OneToMany(mappedBy = "user")
-//    private Set<Videocomplete> videocompleteSet;
-//
-//    @OneToMany(mappedBy = "userId")
-//    private Set<CourseProcess> courseprocessSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,19 +63,12 @@ public class User implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "role")
     private String role;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "firstName")
     private String firstName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "lastName")
     private String lastName;
-    @Size(max = 50)
-    @Column(name = "password")
-    private String password;
     @Column(name = "createdDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -96,32 +83,20 @@ public class User implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
+    @Size(max = 10)
     @Column(name = "phoneNumber")
     private String phoneNumber;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Answerchoice> answerchoiceSet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Certification> certificationSet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Enrollment> enrollmentSet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Score> scoreSet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Teacher> teacherSet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Essay> essaySet;
-//    @OneToMany(mappedBy = "userId")
-//    @JsonIgnore
-//    private Set<Receipt> receiptSet;
+    @Size(max = 100)
+    @Column(name = "password")
+    private String password;
+    @Transient
+    @JsonIgnore
+    private MultipartFile file;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = new Date();
+    }
 
     public User() {
     }
@@ -130,14 +105,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Long id, String username, String role, String firstName, String lastName, String email, String phoneNumber) {
+    public User(Long id, String username, String role, String email) {
         this.id = id;
-        this.username = username;
-        this.role = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.username = username != null ? username : "abc";
+        this.role = role != null ? role : "ROLE_STUDENT";
+        this.email = email != null ? email : "abc@gmail.com";
     }
 
     public Long getId() {
@@ -180,14 +152,6 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -228,68 +192,13 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-//    @XmlTransient
-//    public Set<Answerchoice> getAnswerchoiceSet() {
-//        return answerchoiceSet;
-//    }
-//
-//    public void setAnswerchoiceSet(Set<Answerchoice> answerchoiceSet) {
-//        this.answerchoiceSet = answerchoiceSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Certification> getCertificationSet() {
-//        return certificationSet;
-//    }
-//
-//    public void setCertificationSet(Set<Certification> certificationSet) {
-//        this.certificationSet = certificationSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Enrollment> getEnrollmentSet() {
-//        return enrollmentSet;
-//    }
-//
-//    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
-//        this.enrollmentSet = enrollmentSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Score> getScoreSet() {
-//        return scoreSet;
-//    }
-//
-//    public void setScoreSet(Set<Score> scoreSet) {
-//        this.scoreSet = scoreSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Teacher> getTeacherSet() {
-//        return teacherSet;
-//    }
-//
-//    public void setTeacherSet(Set<Teacher> teacherSet) {
-//        this.teacherSet = teacherSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Essay> getEssaySet() {
-//        return essaySet;
-//    }
-//
-//    public void setEssaySet(Set<Essay> essaySet) {
-//        this.essaySet = essaySet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Receipt> getReceiptSet() {
-//        return receiptSet;
-//    }
-//
-//    public void setReceiptSet(Set<Receipt> receiptSet) {
-//        this.receiptSet = receiptSet;
-//    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public int hashCode() {
@@ -316,26 +225,18 @@ public class User implements Serializable {
         return "com.ecourse.pojo.User[ id=" + id + " ]";
     }
 
-//    @XmlTransient
-//    public Set<CourseProcess> getCourseprocessSet() {
-//        return courseprocessSet;
-//    }
-//
-//    public void setCourseprocessSet(Set<CourseProcess> courseprocessSet) {
-//        this.courseprocessSet = courseprocessSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Videocomplete> getVideocompleteSet() {
-//        return videocompleteSet;
-//    }
-//
-//    public void setVideocompleteSet(Set<Videocomplete> videocompleteSet) {
-//        this.videocompleteSet = videocompleteSet;
-//    }
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
 
-//    public String getFullName() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-    
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
 }

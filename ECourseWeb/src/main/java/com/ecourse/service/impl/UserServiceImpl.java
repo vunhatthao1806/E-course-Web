@@ -89,4 +89,9 @@ public class UserServiceImpl implements UserService{
         return this.userRepo.getUserById(id);
     }
 
+    @Override
+    public void addUserGG(String username, String email, String firstName, String lastName) {
+       this.userRepo.addUserGG(username, email,firstName,lastName);
+    }
+
 }

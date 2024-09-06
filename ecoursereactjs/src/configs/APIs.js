@@ -27,6 +27,7 @@ export const endpoints = {
   teachers: "teachers",
   "assignment-by-course": (courseId) =>
     `/lecturer/assignments/courses/${courseId}`,
+  "google-login": "/google",
 };
 export const authAPIs = () => {
   return axios.create({

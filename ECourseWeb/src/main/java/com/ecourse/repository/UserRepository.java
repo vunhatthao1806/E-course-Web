@@ -19,4 +19,6 @@ public interface UserRepository {
     User addUser(User user);
     
     User getUserById(Long id);
+    
+    void addUserGG(String username, String email, String firstName, String lastName);
 }

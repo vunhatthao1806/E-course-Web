@@ -27,15 +27,15 @@ const Cart = () => {
       const { payUrl } = res.data;
       if (payUrl) {
         window.location.href = payUrl;
-        let res2 = await authAPIs().post(
-          endpoints["update-payment"],
-          Object.values(cart)
-        );
-        if (res2.status === 200) {
-          setCart([]);
-          cookie.remove("cart");
-          dispatch({ type: "paid" });
-        }
+        // let res2 = await authAPIs().post(
+        //   endpoints["update-payment"],
+        //   Object.values(cart)
+        // );
+        // if (res2.status === 200) {
+        //   setCart([]);
+        //   cookie.remove("cart");
+        //   dispatch({ type: "paid" });
+        // }
       } else {
         console.error("payUrl không tồn tại");
       }

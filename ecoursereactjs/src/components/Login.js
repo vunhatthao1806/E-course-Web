@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import loginImage from "../image/login.png";
 import "../css/Login.css";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = () => {
   const user = useContext(MyUserContext);
   const dispatch = useContext(MyDispatchContext);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const loadLogin = async (e) => {
     e.preventDefault();
 
@@ -33,9 +35,30 @@ const Login = () => {
     });
   };
 
+  const handleGoogleLogin = async (response) => {
+    const googleToken = response.credential;
+    console.log(googleToken);
+
+    // Gửi googleToken lên server để xác thực và nhận JWT
+    let res = await APIs.post(endpoints["google-login"], {
+      token: googleToken,
+    });
+
+    cookie.save("token", res.data);
+
+    let user = await authAPIs().get(endpoints["current-user"]);
+    cookie.save("user", user.data);
+
+    dispatch({
+      type: "login",
+      payload: user.data,
+    });
+  };
+
   if (user != null) {
     return <Navigate to="/" />;
   }
+
   return (
     <>
       <div className="container">
@@ -49,13 +72,15 @@ const Login = () => {
               Welcome back! You've been missed!
             </p>
             <div className="d-flex button-sign-gg-fb">
-              <Button>
-                <FontAwesomeIcon
-                  style={{ marginRight: "10px" }}
-                  icon={faGoogle}
+              {/* Google Sign In */}
+              <GoogleOAuthProvider clientId="183350919740-0pseqk6qohlp1ikdb84k9brqascucg29.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
                 />
-                Sign in with Google
-              </Button>
+              </GoogleOAuthProvider>
               <Button>
                 <FontAwesomeIcon
                   style={{ marginRight: "10px" }}
@@ -114,4 +139,5 @@ const Login = () => {
     </>
   );
 };
+
 export default Login;
